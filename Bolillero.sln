@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bolillero", "Bolillero\Bolillero.csproj", "{A20AD6A6-E97F-4BF2-B232-BBDCC5B822DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBolillero", "TestBolillero\TestBolillero.csproj", "{FF8F1EDC-ABAF-4161-8CA4-8DA61FD97E53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A20AD6A6-E97F-4BF2-B232-BBDCC5B822DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20AD6A6-E97F-4BF2-B232-BBDCC5B822DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20AD6A6-E97F-4BF2-B232-BBDCC5B822DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20AD6A6-E97F-4BF2-B232-BBDCC5B822DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF8F1EDC-ABAF-4161-8CA4-8DA61FD97E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF8F1EDC-ABAF-4161-8CA4-8DA61FD97E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF8F1EDC-ABAF-4161-8CA4-8DA61FD97E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF8F1EDC-ABAF-4161-8CA4-8DA61FD97E53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {271F8E37-C378-44AE-A6A1-3EE1D71AABCF}
+	EndGlobalSection
+EndGlobal
