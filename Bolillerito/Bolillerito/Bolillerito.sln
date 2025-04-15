@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bolillerito", "Bolillerito.csproj", "{566E79EC-09C3-3D29-FB3A-F390444434CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "..\TestProject1\TestProject1.csproj", "{C3B4FAAB-26DA-4A17-8F3E-C7702849389D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{566E79EC-09C3-3D29-FB3A-F390444434CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566E79EC-09C3-3D29-FB3A-F390444434CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566E79EC-09C3-3D29-FB3A-F390444434CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566E79EC-09C3-3D29-FB3A-F390444434CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B4FAAB-26DA-4A17-8F3E-C7702849389D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B4FAAB-26DA-4A17-8F3E-C7702849389D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B4FAAB-26DA-4A17-8F3E-C7702849389D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B4FAAB-26DA-4A17-8F3E-C7702849389D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27BDF0E6-EA73-4DE8-941E-332E2654E309}
+	EndGlobalSection
+EndGlobal
