@@ -19,25 +19,30 @@ namespace Bolillerito
 
         public long SimularConHilos(Bolillero bolillero, List<int> jugada, int cantidad, int cantidadHilos)
         {
-            int simulacionesPorHilo = cantidad / cantidadHilos;
-            var tareas = new List<Task<long>>();
+        int simulacionesPorHilo = cantidad / cantidadHilos;
+        int resto = cantidad % cantidadHilos;
+        var tareas = new List<Task<long>>();
 
-            for (int i = 0; i < cantidadHilos; i++)
+        for (int i = 0; i < cantidadHilos; i++)
+        {
+            int simulacionesEsteHilo = simulacionesPorHilo;
+
+            if (i == 0) 
+                simulacionesEsteHilo += resto;
+
+            tareas.Add(Task.Run(() =>
             {
-                tareas.Add(Task.Run(() =>
+                long ganadas = 0;
+                var clon = (Bolillero)bolillero.Clone();
+                for (int j = 0; j < simulacionesEsteHilo; j++)
                 {
-                    long ganadas = 0;
-                    var clon = (Bolillero)bolillero.Clone();
-                    for (int j = 0; j < simulacionesPorHilo; j++)
-                    {
-                        if (clon.Jugar(jugada)) ganadas++;
-                    }
-                    return ganadas;
-                }));
-            }
-
-            Task.WaitAll(tareas.ToArray());
-            return tareas.Sum(t => t.Result);
+                    if (clon.Jugar(jugada)) ganadas++;
+                }
+                return ganadas;
+            }));
         }
+        Task.WaitAll(tareas.ToArray());
+        return tareas.Sum(t => t.Result);
+}
     }
 }
