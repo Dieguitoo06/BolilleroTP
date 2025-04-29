@@ -1,55 +1,48 @@
-using Bolillerito;
-using System.Collections.Generic;
 using Xunit;
+using System.Collections.Generic;
 
-namespace Bolillerito.Tests
+namespace Bolillerito;
+
+public class UnitTest1
 {
-    public class SimulacionTests
+    private Bolillero bolillero;
+    private List<int> jugada;
+    private Simulacion simulacion;
+
+    public UnitTest1()
     {
-        private Bolillero CrearBolillero() => new Bolillero(10);
+        bolillero = new Bolillero(10);
+        jugada = new List<int> { 0, 1, 2, 3 };
+        simulacion = new Simulacion();
+    }
 
-        private List<int> CrearJugadaGanadoraPosible() => new List<int> { 0, 1, 2 };
+    [Fact]
+    public void SimularSinHilos()
+    {
+        int cantidadSimulaciones = 1000;
+        long ganadas = simulacion.SimularSinHilos(bolillero, jugada, cantidadSimulaciones);
+        Assert.InRange(ganadas, 0, cantidadSimulaciones);
+    }
 
-        [Fact]
-        public void SimularSinHilos_DeberiaRetornarNumeroDeGanadas()
-        {
-            var bolillero = CrearBolillero();
-            var jugada = CrearJugadaGanadoraPosible();
-            var simulacion = new Simulacion();
-            int cantidadSimulaciones = 1000;
+    [Fact]
+    public void SimularConHilos()
+    {
+        int cantidadSimulaciones = 1000;
+        int cantidadHilos = 4;
+        long ganadas = simulacion.SimularConHilos(bolillero, jugada, cantidadSimulaciones, cantidadHilos);
+        Assert.InRange(ganadas, 0, cantidadSimulaciones);
+    }
 
-            long ganadas = simulacion.SimularSinHilos(bolillero, jugada, cantidadSimulaciones);
+    [Fact]
+    public void Simulaciones_ConySinHilos()
+    {
+        var bolillero1 = new Bolillero(10);
+        var bolillero2 = new Bolillero(10);
+        int cantidadSimulaciones = 10000;
 
-            Assert.InRange(ganadas, 0, cantidadSimulaciones);
-        }
+        long sinHilos = simulacion.SimularSinHilos(bolillero1, jugada, cantidadSimulaciones);
+        long conHilos = simulacion.SimularConHilos(bolillero2, jugada, cantidadSimulaciones, 4);
 
-        [Fact]
-        public void SimularConHilos_DeberiaRetornarNumeroDeGanadas()
-        {
-            var bolillero = CrearBolillero();
-            var jugada = CrearJugadaGanadoraPosible();
-            var simulacion = new Simulacion();
-            int cantidadSimulaciones = 1000;
-            int cantidadHilos = 4;
-
-            long ganadas = simulacion.SimularConHilos(bolillero, jugada, cantidadSimulaciones, cantidadHilos);
-
-            Assert.InRange(ganadas, 0, cantidadSimulaciones);
-        }
-
-        [Fact]
-        public void Simulaciones_ConYSinHilos_DebenSerSimilares()
-        {
-            var bolillero1 = CrearBolillero();
-            var bolillero2 = CrearBolillero();
-            var jugada = CrearJugadaGanadoraPosible();
-            var simulacion = new Simulacion();
-            int cantidadSimulaciones = 10000;
-
-            long sinHilos = simulacion.SimularSinHilos(bolillero1, jugada, cantidadSimulaciones);
-            long conHilos = simulacion.SimularConHilos(bolillero2, jugada, cantidadSimulaciones, 4);
-
-            Assert.InRange(sinHilos, conHilos - 100, conHilos + 100);
-        }
+        Assert.InRange(sinHilos, conHilos - 100, conHilos + 100);
     }
 }
