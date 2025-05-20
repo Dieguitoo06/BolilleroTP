@@ -1,5 +1,6 @@
 using Xunit;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bolillerito;
 
@@ -34,6 +35,15 @@ public class UnitTest1
     }
 
     [Fact]
+    public async Task SimularConHilosAsync()
+    {
+        int cantidadSimulaciones = 1000;
+        int cantidadHilos = 4;
+        long ganadas = await simulacion.SimularConHilosAsync(bolillero, jugada, cantidadSimulaciones, cantidadHilos);
+        Assert.InRange(ganadas, 0, cantidadSimulaciones);
+    }
+
+    [Fact]
     public void Simulaciones_ConySinHilos()
     {
         var bolillero1 = new Bolillero(10);
@@ -44,5 +54,18 @@ public class UnitTest1
         long conHilos = simulacion.SimularConHilos(bolillero2, jugada, cantidadSimulaciones, 4);
 
         Assert.InRange(sinHilos, conHilos - 100, conHilos + 100);
+    }
+
+    [Fact]
+    public async Task Simulaciones_ConHilosAsyncVsSinHilos()
+    {
+        var bolillero1 = new Bolillero(10);
+        var bolillero2 = new Bolillero(10);
+        int cantidadSimulaciones = 10000;
+
+        long sinHilos = simulacion.SimularSinHilos(bolillero1, jugada, cantidadSimulaciones);
+        long conHilosAsync = await simulacion.SimularConHilosAsync(bolillero2, jugada, cantidadSimulaciones, 4);
+
+        Assert.InRange(sinHilos, conHilosAsync - 100, conHilosAsync + 100);
     }
 }
