@@ -16,6 +16,16 @@ namespace Bolillerito
             }
             return ganadas;
         }
+        private static long EjecutarSimulaciones(Bolillero bolillero, List<int> jugada, int cantidad)
+        {
+            long ganadas = 0;
+            var clon = (Bolillero)bolillero.Clone();
+            for (int j = 0; j < cantidad; j++)
+            {
+                if (clon.Jugar(jugada)) ganadas++;
+            }
+            return ganadas;
+        }
 
         public long SimularConHilos(Bolillero bolillero, List<int> jugada, int cantidad, int cantidadHilos)
         {
@@ -26,18 +36,12 @@ namespace Bolillerito
             for (int i = 0; i < cantidadHilos; i++)
             {
                 int simulacionesEsteHilo = simulacionesPorHiloBase + (i < simulacionesExtra ? 1 : 0);
-
                 tareas.Add(Task.Run(() =>
                 {
-                    long ganadas = 0;
-                    var clon = (Bolillero)bolillero.Clone();
-                    for (int j = 0; j < simulacionesEsteHilo; j++)
-                    {
-                        if (clon.Jugar(jugada)) ganadas++;
-                    }
-                    return ganadas;
+                    return EjecutarSimulaciones(bolillero, jugada, simulacionesEsteHilo);
                 }));
             }
+
             Task.WaitAll(tareas.ToArray());
             return tareas.Sum(t => t.Result);
         }
@@ -46,27 +50,17 @@ namespace Bolillerito
         {
             int simulacionesPorHiloBase = cantidad / cantidadHilos;
             int simulacionesExtra = cantidad % cantidadHilos;
-            var tareas = new List<Task<long>>();
 
-            for (int i = 0; i < cantidadHilos; i++)
-            {
-                int simulacionesEsteHilo = simulacionesPorHiloBase + (i < simulacionesExtra ? 1 : 0);
-
-                tareas.Add(Task.Run(() =>
+            var tareas = Enumerable.Range(0, cantidadHilos)
+                .Select(i =>
                 {
-                    long ganadas = 0;
-                    var clon = (Bolillero)bolillero.Clone();
-                    for (int j = 0; j < simulacionesEsteHilo; j++)
-                    {
-                        if (clon.Jugar(jugada)) ganadas++;
-                    }
-                    return ganadas;
-                }));
-            }
-            
-            await Task.WhenAll(tareas);
-            
-            return tareas.Sum(t => t.Result);
+                    int repeticiones = simulacionesPorHilosBase + (i < simulacionesExtra ? 1 : 0);
+                    return Task.Run(() => EjecutarSimulaciones(bolillero, jugada, repeticiones));
+                })
+                .ToArray();
+
+            var resultados = await Task.WhenAll(tareas);
+            return resultados.Sum();
         }
     }
 }
